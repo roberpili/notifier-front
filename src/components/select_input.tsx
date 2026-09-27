@@ -22,17 +22,15 @@ export const SelectInput = ({
   required,
   onChange,
 }: Props) => (
-  <div className="relative mb-3 w-full">
-    <label htmlFor={id} className="mb-2 block text-xs font-bold uppercase">
-      {label}
-    </label>
+  <div className="select-input">
+    <label htmlFor={id}>{label}</label>
+
     <select
       id={id}
       name={name}
       value={value}
       required={required}
       onChange={onChange}
-      className="w-full rounded border-0 bg-white px-3 py-3 text-sm shadow"
     >
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
