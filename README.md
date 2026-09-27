@@ -7,44 +7,24 @@
 </h1>
 
 <p align="center">
-  <img alt="Stars" src="https://img.shields.io/github/stars/rober0xf/notifier-front">
-  <a href="https://github.com/rober0xf/notifier-front">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rober0xf/notifier-front">
+  <img alt="Stars" src="https://img.shields.io/github/stars/roberpili/notifier-front">
+  <a href="https://github.com/roberpili/notifier-front">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/roberpili/notifier-front">
   </a>
-    
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
-  <a href="https://github.com/rober0xf/">
-    <img alt="made by rober0xf" src="https://img.shields.io/badge/made%20by-rober0xf%20-ff69b4">
-  </a>
-</p>
 
-<h4 align="center">Status: Finished</h4>
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+</p>
 
 <p align="center">
  <a href="#about">About</a> •
- <a href="#features">Features</a> •
  <a href="#how-it-works">How it works</a> • 
  <a href="#tech-stack">Tech Stack</a> •  
- <a href="#author">Author</a> • 
  <a href="#user-content-license">License</a>
 </p>
 
 ## About
 
 Frontend for the payment notification system
-
----
-
-## Features
-
-- [x] Users will be able to access via login and register
-- [x] Users will be able to manage payments:
-  - [x] add payments
-  - [x] see payments
-  - [x] update payments
-  - [x] delete payments
-
----
 
 ## How it works
 
@@ -55,53 +35,67 @@ The project is divided into two parts:
 
 But this repository is referring only to the Frontend part. Frontend need the Backend to be running to work.
 
+> **Port conflict:** the backend base URL is hardcoded to `http://localhost:3000` in
+> [`src/services/payment.ts`](./src/services/payment.ts). Since the Next.js dev server
+> also defaults to port `3000`, run the frontend on a different port:
+>
+> ```bash
+> $ bun run dev --port 3001
+> ```
+
 ### Pre-requisites
 
 Before you begin, you will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Bun](https://bun.com/).
-In addition, it is good to have an editor to work with the code like [Neovim](https://neovim.io/)
 
 #### Running the web application (Frontend)
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/rober0xf/notifier-front.git
-
-# Access the project folder in your terminal
+$ git clone https://github.com/roberpili/notifier-front.git
 $ cd notifier-front
-
-# Install the dependencies
 $ bun install
-
-# Run the application in development mode
-$ bun run dev
-
-# The application will open on the port: 5173 - go to http://localhost:5173
-
+$ bun run dev --port 3001
+# The application will open on the port: 3001 - go to http://localhost:3001
 ```
 
----
+#### Production build (Frontend)
+
+```bash
+$ bun run build
+$ bun run start
+```
+
+## Architecture
+
+This is a Next.js App Router application. Data flows one way:
+
+```text
+page / component -> server action -> service -> backend
+```
+
+| Location          | Responsibility                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------- |
+| `src/app/`        | Routes. Server Components by default; `page.tsx` fetches data directly and `loading.tsx` shows pending   |
+| `src/proxy.ts`    | Route guard. Redirects unauthenticated traffic away from `/dashboard` and `/payments`                    |
+| `src/actions/`    | `"use server"` mutations. Read/write the session cookie, call a service, `revalidatePath`               |
+| `src/services/`   | The only place that talks to the backend                                                                |
+| `src/lib/`        | Pure, framework-free logic: session cookie helpers, form invariants, validation                           |
+| `src/components/` | Presentational components. `"use client"` only where interactivity is required                            |
+
+Authentication uses an httpOnly session cookie written by the login Server Action, so
+server-side reads can authorize requests without any client-side state. There is no
+client-side auth store and no `localStorage` usage.
 
 ## Tech Stack
 
 The following tools were used in the construction of the project:
 
-#### **Platform** ([React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/))
+#### **Platform** ([Next.js](https://nextjs.org/) + [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/))
 
-- **[React Router Dom](https://reactrouter.com/)**
-- **[TailwindCSS](https://tailwindcss.com/)**
+- **[Next.js App Router](https://nextjs.org/docs/app)** with Server Components, Server Actions and Proxy
+- **[React 19](https://reactjs.org/)** (`useActionState`, `useReducer`)
 - **[Prime Icons](https://www.npmjs.com/package/primeicons)**
-- **[Zustand](https://zustand.docs.pmnd.rs)**
-
-> See the file [package.json](https://github.com/rober0xf/notifier-front/blob/master/package.json)
-
----
-
-## Author
-
-[![LinkedIn](https://img.shields.io/badge/rober0xf-LinkedIn-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/rober0xf/)
-
----
+- **[Tailwind CSS](https://tailwindcss.com/)**
 
 ## License
 

@@ -14,6 +14,17 @@ dist-ssr
 coverage
 *.local
 
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
 /cypress/videos/
 /cypress/screenshots/
 

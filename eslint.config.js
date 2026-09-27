@@ -1,23 +1,22 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-export default defineConfig([
-  globalIgnores(['dist']),
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    rules: {
+      // Mirrors tsconfig's `noUnusedParameters`, which already ignores the
+      // `_` prefix. Server Actions bound with `.bind()` need positional
+      // parameters they do not read.
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
     },
   },
-])
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "dist/**"]),
+]);
+
+export default eslintConfig;
