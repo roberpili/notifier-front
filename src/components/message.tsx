@@ -1,3 +1,5 @@
+import "@/app/styles/message.css";
+
 type StatusType = "success" | "error";
 
 interface Props {

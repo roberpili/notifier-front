@@ -1,0 +1,15 @@
+.status-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    user-select: none;
+}
+
+.status-message--success {
+    color: #22c55e;
+}
+
+.status-message--error {
+    color: #ef4444;
+}

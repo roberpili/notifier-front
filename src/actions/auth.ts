@@ -41,19 +41,22 @@ export async function registerAction(
   _prev: RegisterFormState,
   formData: FormData,
 ): Promise<RegisterFormState> {
-  if (!formData.has("terms")) {
-    return {
-      error: "you must accept the terms and conditions.",
-      success: null,
-    };
-  }
-
   const values = {
     username: readString(formData, "username").trim(),
     email: readString(formData, "email").trim(),
     password: readString(formData, "password"),
     confirmPassword: readString(formData, "confirmPassword"),
   };
+
+  const keep = { username: values.username, email: values.email };
+
+  if (!formData.has("terms")) {
+    return {
+      error: "you must accept the terms and conditions.",
+      success: null,
+      values: keep,
+    };
+  }
 
   const validationError = validateRegister(values);
   if (validationError) {
@@ -70,6 +73,7 @@ export async function registerAction(
     return {
       error: error instanceof Error ? error.message : "unknown error",
       success: null,
+      values: keep,
     };
   }
 

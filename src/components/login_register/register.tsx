@@ -50,6 +50,7 @@ export function RegisterComponent() {
                 type="text"
                 placeholder="Username"
                 className="register-input"
+                defaultValue={state.values?.username}
                 required
               />
 
@@ -58,6 +59,7 @@ export function RegisterComponent() {
                 type="email"
                 placeholder="Email"
                 className="register-input"
+                defaultValue={state.values?.email}
                 required
               />
 

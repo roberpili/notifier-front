@@ -7,6 +7,10 @@ export type AuthFormState = {
 export type RegisterFormState = {
   error: string | null;
   success: string | null;
+  values?: {
+    username: string;
+    email: string;
+  };
 };
 
 export type PaymentResultState = {

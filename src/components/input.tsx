@@ -1,5 +1,5 @@
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+type InputProps = React.ComponentPropsWithoutRef<"input">;
 
-export const InputComponent = ({ ...props }: Props) => {
+export const InputComponent = ({ ...props }: InputProps) => {
   return <input {...props} />;
 };
