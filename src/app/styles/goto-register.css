@@ -1,0 +1,16 @@
+.goto-register {
+    margin-top: 1rem;
+    color: #374151;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.goto-register a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.goto-register a:hover {
+    text-decoration: underline;
+}

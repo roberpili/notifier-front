@@ -1,0 +1,16 @@
+.goto-login {
+    margin-top: 2.5rem;
+    color: #d1d5db;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.goto-login a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.goto-login a:hover {
+    text-decoration: underline;
+}

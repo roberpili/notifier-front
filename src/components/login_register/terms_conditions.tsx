@@ -1,5 +1,13 @@
 import Link from "next/link";
-import type { CheckboxProps } from "@/types";
+import "@/app/styles/terms.css";
+
+interface CheckboxProps {
+  name?: string;
+  checked?: boolean;
+  required?: boolean;
+  onChange?: (value: boolean) => void;
+  className?: string;
+}
 
 export const TermsAndConditionsComponent = ({
   name,
@@ -9,27 +17,20 @@ export const TermsAndConditionsComponent = ({
   className,
 }: CheckboxProps) => {
   return (
-    <div>
-      <label className="mt-5 flex cursor-pointer items-center">
-        <input
-          type="checkbox"
-          name={name}
-          checked={checked}
-          required={required}
-          className={`border border-gray-400 ${className || ""}`}
-          onChange={(e) => onChange?.(e.target.checked)}
-        />
-        <span className="ml-2 font-medium text-white">
-          I accept the{" "}
-          <Link href="/terms" className="font-bold text-green-600">
-            Terms of Use
-          </Link>{" "}
-          and{" "}
-          <Link href="/conditions" className="font-bold text-green-600">
-            Privacy Policy
-          </Link>
-        </span>
-      </label>
-    </div>
+    <label className="terms-checkbox">
+      <input
+        type="checkbox"
+        name={name}
+        checked={checked}
+        required={required}
+        className={className}
+        onChange={(e) => onChange?.(e.target.checked)}
+      />
+
+      <span>
+        I accept the <Link href="/terms">Terms of Use</Link> and{" "}
+        <Link href="/conditions">Privacy Policy</Link>
+      </span>
+    </label>
   );
 };

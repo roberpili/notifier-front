@@ -1,0 +1,128 @@
+.register {
+    min-height: 100vh;
+    padding-block: 10rem;
+}
+
+.register-container {
+    width: 100%;
+    margin-inline: auto;
+}
+
+.register-card {
+    display: flex;
+    flex-direction: column;
+    width: 83.333333%;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: #222;
+    filter: drop-shadow(0 0 30px rgb(0 0 0 / 0.9))
+        drop-shadow(0 0 30px rgb(0 0 0 / 0.6))
+        drop-shadow(0 0 30px rgb(0 0 0 / 0.4));
+}
+
+.register-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 3rem;
+    background: url("/assets/images/registration.jpg") center / cover no-repeat;
+}
+
+.register-intro h2 {
+    margin-bottom: 0.75rem;
+    color: #d1d5db;
+    font-size: 1.875rem;
+    font-weight: 500;
+}
+
+.register-intro p {
+    margin-top: 1.25rem;
+    color: #d1d5db;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.register-form-section {
+    width: 100%;
+    padding: 4rem 3rem;
+}
+
+.register-form-section h1 {
+    margin-top: -1rem;
+    color: #d1d5db;
+    font-size: 1.875rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.register-form-section > p {
+    margin-block: 1.5rem 1rem;
+    color: #d1d5db;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.register-input {
+    width: 100%;
+    margin-top: 1.25rem;
+    border: 1px solid #9ca3af;
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.register-submit {
+    width: 100%;
+    margin-top: 1.25rem;
+    background: #166534;
+    padding-block: 0.75rem;
+    color: #e5e7eb;
+    font-size: 1.125rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 300ms;
+    cursor: pointer;
+}
+
+.register-submit:hover {
+    background: #14532d;
+}
+
+.register-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.register-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+    margin-block: 1rem;
+}
+
+.register-divider span:first-child,
+.register-divider span:last-child {
+    flex: 1;
+    height: 1px;
+    background: #4b5563;
+}
+
+.register-divider span:nth-child(2) {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 1024px) {
+    .register-card {
+        width: 66.666667%;
+        flex-direction: row;
+    }
+
+    .register-intro,
+    .register-form-section {
+        width: 50%;
+    }
+}
