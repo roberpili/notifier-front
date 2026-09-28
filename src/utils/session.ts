@@ -7,7 +7,7 @@ import {
   SESSION_MAX_AGE,
 } from "@/lib/session-cookie";
 
-async function setSession(session: Session): Promise<void> {
+export async function setSession(session: Session): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.set(SESSION_COOKIE, JSON.stringify(session), {
     httpOnly: true,
@@ -18,7 +18,7 @@ async function setSession(session: Session): Promise<void> {
   });
 }
 
-async function clearSession(): Promise<void> {
+export async function clearSession(): Promise<void> {
   (await cookies()).delete(SESSION_COOKIE);
 }
 

@@ -12,7 +12,7 @@ const readString = (formData: FormData, name: string): string => {
   return typeof value === "string" ? value : "";
 };
 
-async function loginAction(
+export async function loginAction(
   _prev: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
@@ -37,7 +37,7 @@ async function loginAction(
   redirect("/dashboard");
 }
 
-async function registerAction(
+export async function registerAction(
   _prev: RegisterFormState,
   formData: FormData,
 ): Promise<RegisterFormState> {
@@ -79,7 +79,7 @@ async function registerAction(
   };
 }
 
-async function logoutAction(): Promise<void> {
+export async function logoutAction(): Promise<void> {
   await clearSession();
   redirect("/");
 }

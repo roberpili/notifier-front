@@ -19,7 +19,7 @@ const failure = (message: string): PaymentResultState => ({
 const errorMessage = (error: unknown, fallback: string): string =>
   error instanceof Error ? error.message : fallback;
 
-async function createPaymentAction(
+export async function createPaymentAction(
   _prev: PaymentResultState | null,
   formData: FormData,
 ): Promise<PaymentResultState> {
@@ -41,7 +41,7 @@ async function createPaymentAction(
   return { message: "payment created successfully", type: "success" };
 }
 
-async function updatePaymentAction(
+export async function updatePaymentAction(
   paymentId: number,
   _prev: PaymentResultState | null,
   formData: FormData,
@@ -70,7 +70,7 @@ async function updatePaymentAction(
   return { message: "Payment updated successfully", type: "success" };
 }
 
-async function deletePaymentAction(
+export async function deletePaymentAction(
   paymentId: number,
   _prev: PaymentResultState | null,
   _formData: FormData,
