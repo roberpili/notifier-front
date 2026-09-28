@@ -25,8 +25,6 @@ export interface Payment {
   receipt_url: string | null;
 }
 
-export interface PaymentForm {}
-
 export interface PaymentFormState {
   id: number;
   user_id: number;
@@ -47,3 +45,21 @@ export type CreatePaymentDTO = Omit<Payment, "id" | "user_id">;
 export type UpdatePaymentDTO = Partial<Omit<Payment, "id" | "user_id">> & {
   id: number;
 };
+
+export type ValidatedPayment = PaymentFormState & {
+  type: Type;
+  category: Category;
+};
+
+export type PaymentValidation =
+  { ok: true; value: ValidatedPayment } | { ok: false; error: string };
+
+export type PaymentFieldChange = {
+  name: string;
+  value: string;
+  checked: boolean;
+  isCheckbox: boolean;
+};
+
+export type PaymentFormAction =
+  { type: "change"; change: PaymentFieldChange } | { type: "reset" };
