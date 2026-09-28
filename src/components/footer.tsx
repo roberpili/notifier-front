@@ -1,4 +1,5 @@
 import type { footerConfig } from "@/constants/footer";
+import "@/app/styles/footer.css";
 
 export type FooterProps = typeof footerConfig;
 

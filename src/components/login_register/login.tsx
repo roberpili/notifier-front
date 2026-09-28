@@ -19,7 +19,7 @@ export const LoginComponent = () => {
   );
 
   return (
-    <main className="login">
+    <div className="login">
       <div className="login-card">
         <h1>Login Page</h1>
 
@@ -80,6 +80,6 @@ export const LoginComponent = () => {
         height={400}
         className="login-image"
       />
-    </main>
+    </div>
   );
 };

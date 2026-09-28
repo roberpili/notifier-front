@@ -30,7 +30,7 @@ export function RegisterComponent() {
   }, [state.success, router]);
 
   return (
-    <main className="register">
+    <div className="register">
       <div className="register-container">
         <div className="register-card">
           {/* left */}
@@ -112,6 +112,6 @@ export function RegisterComponent() {
           </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

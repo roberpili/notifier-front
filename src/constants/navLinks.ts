@@ -3,13 +3,13 @@ export const NavbarLinks = [
   {
     id: 2,
     label: "Development",
-    to: "https://github.com/rober0xf/notifier",
+    to: "https://github.com/roberpili/notifier",
     external: true,
   },
   {
     id: 3,
     label: "Releases",
-    to: "https://github.com/rober0xf/notifier/releases",
+    to: "https://github.com/roberpili/notifier/releases",
     external: true,
   },
 ];

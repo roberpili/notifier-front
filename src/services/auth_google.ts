@@ -5,9 +5,7 @@ interface GoogleAuthResponse {
   token: string;
 }
 
-export const googleAuth = async (
-  idToken: string,
-): Promise<GoogleAuthResponse> => {
+export async function googleAuth(idToken: string): Promise<GoogleAuthResponse> {
   const response = await fetch(`${API_BASE_URL}/v1/users/login/google`, {
     method: "POST",
     credentials: "include",
@@ -20,4 +18,4 @@ export const googleAuth = async (
   }
 
   return response.json();
-};
+}

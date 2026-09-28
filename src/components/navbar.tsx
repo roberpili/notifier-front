@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { logoutAction } from "@/actions/auth";
 import { Button } from "./button";
-import NavbarLinks from "@/constants/navLinks";
-import { getSession } from "@/lib/session";
 import Image from "next/image";
+import { getSession } from "@/lib/session-cookie";
+import { logoutAction } from "@/actions/auth";
+import { NavbarLinks } from "@/constants/navLinks";
+import "@/app/styles/navbar.css";
 
 export const NavbarComponent = async () => {
   const session = await getSession();
@@ -11,7 +12,7 @@ export const NavbarComponent = async () => {
   return (
     <nav className="navbar">
       {/* logo section */}
-      <div className="navbar-brand">
+      <div>
         <Link href="/" className="navbar-logo">
           <Image
             src="/assets/images/linux.svg"

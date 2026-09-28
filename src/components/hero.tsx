@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import "@/app/styles/hero.css";
 
 export const HeroComponent = () => {
   return (
@@ -16,7 +17,7 @@ export const HeroComponent = () => {
             Track your bills, subscriptions, and purchases.
           </p>
 
-          <Link href="/register" className="hero-button">
+          <Link href="/register" className="primary-button">
             Sign Up Now
           </Link>
         </div>
@@ -27,7 +28,7 @@ export const HeroComponent = () => {
             src="/assets/images/hero.png"
             alt="Hero image"
             width={600}
-            height={600}
+            height={400}
             className="hero-image"
             priority
           />
