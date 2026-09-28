@@ -1,6 +1,6 @@
 import type { RegisterValues } from "@/types/registration";
 
-function validateRegister(values: RegisterValues): string | null {
+export function validateRegister(values: RegisterValues): string | null {
   if (!values.username.trim()) {
     return "username is required";
   }

@@ -32,7 +32,7 @@ export function toPaymentFrequency(value: string): Frequency | null {
   return isMember(value, PAYMENT_FREQUENCIES) ? value : null;
 }
 
-function validatePayment(payment: PaymentFormState): PaymentValidation {
+export function validatePayment(payment: PaymentFormState): PaymentValidation {
   if (!payment.name.trim()) {
     return { ok: false, error: "Name is required" };
   }
@@ -72,7 +72,7 @@ function validatePayment(payment: PaymentFormState): PaymentValidation {
   return { ok: true, value: { ...payment, type, category } };
 }
 
-function buildPaymentDTO(payment: ValidatedPayment): CreatePaymentDTO {
+export function buildPaymentDTO(payment: ValidatedPayment): CreatePaymentDTO {
   return {
     name: payment.name,
     amount: Number(payment.amount),

@@ -1,4 +1,4 @@
-const NavbarLinks = [
+export const NavbarLinks = [
   { id: 1, label: "Home", to: "/", external: false },
   {
     id: 2,
@@ -13,5 +13,3 @@ const NavbarLinks = [
     external: true,
   },
 ];
-
-export default NavbarLinks;

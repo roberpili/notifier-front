@@ -80,7 +80,7 @@ export function paymentFormReducer(
   return applyFieldChange(prev, action.change);
 }
 
-function formDataToPaymentState(
+export function formDataToPaymentState(
   formData: FormData,
   base: PaymentFormState = INIT_PAYMENT,
 ): PaymentFormState {
