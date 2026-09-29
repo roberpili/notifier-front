@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DeletePaymentComponent } from "@/components/payments/delete_payment";
 import { parsePaymentId } from "@/utils/payments-helpers";
+import "@/app/styles/page-payments.css";
 
 export const metadata: Metadata = {
   title: "Notifier | Delete payment",
@@ -17,7 +18,7 @@ export default async function DeletePaymentPage({
 
   if (paymentId === null) {
     return (
-      <main className="container centered">
+      <div className="container centered">
         <h1 className="error" role="alert">
           Invalid Payment ID
         </h1>
@@ -27,7 +28,7 @@ export default async function DeletePaymentPage({
             Go back to Dashboard
           </Link>
         </p>
-      </main>
+      </div>
     );
   }
 

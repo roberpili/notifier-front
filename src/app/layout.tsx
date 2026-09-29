@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={jetbrainsMono.variable}>
       <body>
         <NavbarComponent />
-        <main className="app-main">{children}</main>
+        <main>{children}</main>
         <FooterComponent {...footerConfig} />
         <Script
           src="https://accounts.google.com/gsi/client?hl=en"

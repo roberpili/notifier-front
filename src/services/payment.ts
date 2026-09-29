@@ -1,20 +1,26 @@
-import type { CreatePaymentDTO, Payment } from "../types/payment";
+import type { CreatePaymentDTO, Payment } from "@/types/payment";
 
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL = "http://localhost:8080";
 
-const parseError = async (response: Response): Promise<string> => {
+async function parseError(response: Response): Promise<string> {
   try {
-    const data = await response.json();
-    return data.message || JSON.stringify(data);
+    const data: unknown = await response.json();
+
+    if (data && typeof data === "object") {
+      const message = (data as Record<string, unknown>).message;
+      if (typeof message === "string" && message) return message;
+    }
+
+    return JSON.stringify(data);
   } catch {
     return (await response.text()) || `HTTP Error: ${response.status}`;
   }
-};
+}
 
-export const createPayment = async (
+export async function createPayment(
   paymentData: CreatePaymentDTO,
   token: string,
-): Promise<Payment> => {
+): Promise<Payment> {
   const response = await fetch(`${API_BASE_URL}/v1/auth/payments`, {
     method: "POST",
     headers: {
@@ -30,12 +36,16 @@ export const createPayment = async (
   }
 
   return response.json();
-};
+}
 
-export const getPayments = async (userId: number): Promise<Payment[]> => {
-  const response = await fetch(`${API_BASE_URL}/v1/auth/payments/user/${userId}`, {
+export async function getPayments(token: string): Promise<Payment[]> {
+  const response = await fetch(`${API_BASE_URL}/v1/auth/payments/me`, {
     method: "GET",
-    credentials: "include"
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
   });
 
   if (!response.ok) {
@@ -44,17 +54,18 @@ export const getPayments = async (userId: number): Promise<Payment[]> => {
   }
 
   return response.json();
-};
+}
 
-export const getPaymentById = async (
+export async function getPaymentById(
   id: number,
   token: string,
-): Promise<Payment> => {
+): Promise<Payment> {
   const response = await fetch(`${API_BASE_URL}/v1/auth/payments/${id}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    cache: "no-store",
   });
 
   if (!response.ok) {
@@ -63,13 +74,13 @@ export const getPaymentById = async (
   }
 
   return response.json();
-};
+}
 
-export const updatePayment = async (
+export async function updatePayment(
   id: number,
   paymentData: CreatePaymentDTO,
   token: string,
-): Promise<Payment> => {
+): Promise<Payment> {
   const response = await fetch(`${API_BASE_URL}/v1/auth/payments/${id}`, {
     method: "PUT",
     headers: {
@@ -85,12 +96,9 @@ export const updatePayment = async (
   }
 
   return response.json();
-};
+}
 
-export const deletePayment = async (
-  id: number,
-  token: string,
-): Promise<void> => {
+export async function deletePayment(id: number, token: string): Promise<void> {
   const response = await fetch(`${API_BASE_URL}/v1/auth/payments/${id}`, {
     method: "DELETE",
     headers: {
@@ -102,4 +110,4 @@ export const deletePayment = async (
     const errorMessage = await parseError(response);
     throw new Error(errorMessage);
   }
-};
+}
