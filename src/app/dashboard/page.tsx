@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
 import { DashboardComponent } from "@/components/dashboard";
-import { requireSession } from "@/utils/session";
 import type { Payment } from "@/types/payment";
 import { getPayments } from "@/services/payment";
+import { requireSession } from "@/lib/session-cookie";
+import "@/app/styles/page-dashboard.css";
 
 export const metadata: Metadata = {
   title: "Notifier | Dashboard",
 };
 
 export default async function DashboardPage() {
-  const session = await requireSession();
+  const token = await requireSession();
 
   let payments: Payment[] = [];
   let error: string | null = null;
 
   try {
-    payments = await getPayments(session.userId, session.token);
+    payments = await getPayments(token);
   } catch {
     error = "error fetching payments";
   }
 
   return (
-    <main className="page">
+    <div className="page">
       <DashboardComponent payments={payments} error={error} />
-    </main>
+    </div>
   );
 }

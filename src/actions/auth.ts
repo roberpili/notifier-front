@@ -1,11 +1,13 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { clearSession, setSession } from "@/utils/session";
 import { loginRequest } from "@/services/login";
 import { registerRequest } from "@/services/register";
 import { validateRegister } from "@/lib/register-validation";
 import type { AuthFormState, RegisterFormState } from "@/types/auth";
+import { cookies } from "next/headers";
+import { SESSION_COOKIE, SESSION_MAX_AGE } from "@/constants/auth";
+import { clearSession } from "@/lib/session-cookie";
 
 const readString = (formData: FormData, name: string): string => {
   const value = formData.get(name);
@@ -25,10 +27,14 @@ export async function loginAction(
 
   try {
     const result = await loginRequest({ email, password });
-    await setSession({
-      token: result.token,
-      userId: result.id,
-      email: result.email,
+
+    const cookieStore = await cookies();
+    cookieStore.set(SESSION_COOKIE, result.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: SESSION_MAX_AGE,
     });
   } catch (error) {
     return { error: error instanceof Error ? error.message : "login failed" };

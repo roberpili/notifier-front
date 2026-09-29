@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { SESSION_COOKIE, parseSession } from "@/lib/session-cookie";
+import { SESSION_COOKIE } from "./constants/auth";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/payments"];
 
@@ -10,13 +10,15 @@ const isProtected = (pathname: string): boolean =>
 
 export const proxy = (request: NextRequest): NextResponse => {
   const { pathname } = request.nextUrl;
-  const session = parseSession(request.cookies.get(SESSION_COOKIE)?.value);
 
-  if (isProtected(pathname) && !session) {
+  const token = request.cookies.get(SESSION_COOKIE)?.value;
+  const isAuthenticated = Boolean(token);
+
+  if (isProtected(pathname) && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (pathname === "/login" && session) {
+  if (pathname === "/login" && isAuthenticated) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 

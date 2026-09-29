@@ -1,32 +1,25 @@
-import type { Session } from "@/types/session";
+"use server";
+
+import { SESSION_COOKIE } from "@/constants/auth";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const SESSION_COOKIE = "notifier-session";
-export const SESSION_MAX_AGE = 60 * 60 * 24 * 7;
+export async function getSessionToken(): Promise<string | null> {
+  const cookie = (await cookies()).get(SESSION_COOKIE);
 
-export async function getSession(): Promise<Session | null> {
-  return parseSession((await cookies()).get(SESSION_COOKIE)?.value);
+  return cookie?.value ?? null;
 }
 
-function isSession(value: unknown): value is Session {
-  if (typeof value !== "object" || value === null) return false;
-
-  const candidate = value as Record<string, unknown>;
-
-  return (
-    typeof candidate.token === "string" &&
-    typeof candidate.userId === "number" &&
-    typeof candidate.email === "string"
-  );
-}
-
-export function parseSession(raw: string | undefined): Session | null {
-  if (!raw) return null;
-
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    return isSession(parsed) ? parsed : null;
-  } catch {
-    return null;
+export async function requireSession(): Promise<string> {
+  const token = await getSessionToken();
+  if (!token) {
+    redirect("/login");
   }
+
+  return token;
+}
+
+export async function clearSession(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.delete(SESSION_COOKIE);
 }

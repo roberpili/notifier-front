@@ -13,6 +13,9 @@ export type LoginPayload = {
 export type LoginResponse = {
   id: number;
   email: string;
+};
+
+export type LoginResult = LoginResponse & {
   token: string;
 };
 

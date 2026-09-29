@@ -8,7 +8,7 @@ import {
   updatePayment,
 } from "@/services/payment";
 import type { PaymentResultState } from "@/types/auth";
-import { requireSession } from "@/utils/session";
+import { requireSession } from "@/lib/session-cookie";
 import { revalidatePath } from "next/cache";
 
 const failure = (message: string): PaymentResultState => ({
@@ -28,10 +28,10 @@ export async function createPaymentAction(
     return failure(validation.error);
   }
 
-  const session = await requireSession();
+  const token = await requireSession();
 
   try {
-    await createPayment(buildPaymentDTO(validation.value), session.token);
+    await createPayment(buildPaymentDTO(validation.value), token);
   } catch (error) {
     return failure(`Error: ${errorMessage(error, "an error occurred")}`);
   }
@@ -51,13 +51,13 @@ export async function updatePaymentAction(
     return failure(validation.error);
   }
 
-  const session = await requireSession();
+  const token = await requireSession();
 
   try {
     await updatePayment(
       paymentId,
       buildPaymentDTO(validation.value),
-      session.token,
+      token,
     );
   } catch (error) {
     return failure(
@@ -75,10 +75,10 @@ export async function deletePaymentAction(
   _prev: PaymentResultState | null,
   _formData: FormData,
 ): Promise<PaymentResultState> {
-  const session = await requireSession();
+  const token = await requireSession();
 
   try {
-    await deletePayment(paymentId, session.token);
+    await deletePayment(paymentId, token);
   } catch (error) {
     return failure(`Error: ${errorMessage(error, "an error occurred")}`);
   }

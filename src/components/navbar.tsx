@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { Button } from "./button";
 import Image from "next/image";
-import { getSession } from "@/lib/session-cookie";
 import { logoutAction } from "@/actions/auth";
 import { NavbarLinks } from "@/constants/navLinks";
 import "@/app/styles/navbar.css";
+import { getSessionToken } from "@/lib/session-cookie";
 
 export const NavbarComponent = async () => {
-  const session = await getSession();
+  const token = await getSessionToken();
+  const isLoggedIn = Boolean(token);
 
   return (
     <nav className="navbar">
@@ -39,7 +40,7 @@ export const NavbarComponent = async () => {
             </li>
           ))}
 
-          {session && (
+          {isLoggedIn && (
             <li>
               <Link href="/dashboard">Dashboard</Link>
             </li>
@@ -49,7 +50,7 @@ export const NavbarComponent = async () => {
 
       {/* button section */}
       <div className="navbar-action">
-        {!session ? (
+        {!isLoggedIn ? (
           <Link href="/login" className="primary-button">
             Log In
           </Link>
