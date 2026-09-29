@@ -1,5 +1,6 @@
-import type { Payment } from "@/types";
+import type { Payment } from "@/types/payment";
 import { PaymentRow } from "./payment_row";
+import "@/app/styles/payments-table.css";
 
 interface TableProps {
   payments: Payment[];

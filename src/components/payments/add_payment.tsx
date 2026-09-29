@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "@/app/styles/add-payment.css";
 
 export const AddPaymentComponent = () => {
   return (

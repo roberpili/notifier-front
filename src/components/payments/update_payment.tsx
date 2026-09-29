@@ -3,42 +3,23 @@
 import { useActionState, useEffect, useReducer, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { updatePaymentAction } from "@/actions/payments";
-import { INITIAL_PAYMENT_RESULT } from "@/actions/form-state";
-import { paymentFormReducer, toPaymentFieldChange } from "@/lib/payment-form";
 import { TextInput } from "../text_input";
 import { SelectInput } from "../select_input";
 import { StatusMessageComponent } from "../message";
 import { CheckboxInput } from "../checkbox";
-import { toFormState } from "@/lib/payments-helpers";
-import type { Payment } from "@/types";
+import type { Payment } from "@/types/payment";
+import { paymentFormReducer, toPaymentFieldChange } from "@/lib/payment-form";
+import { toFormState } from "@/utils/payments-helpers";
+import { INITIAL_PAYMENT_RESULT } from "@/constants/auth";
+import { updatePaymentAction } from "@/actions/payments";
+import {
+  PAYMENT_CATEGORIES_FORM,
+  PAYMENT_FREQUENCIES_FORM,
+  PAYMENT_TYPES_FORM,
+} from "@/constants/payment-form";
+import "@/app/styles/update-payment.css";
 
 const REDIRECT_DELAY = 1000;
-
-const PAYMENT_TYPES = [
-  { label: "-- Select type --", value: "" },
-  { label: "Expense", value: "expense" },
-  { label: "Income", value: "income" },
-  { label: "Subscription", value: "subscription" },
-];
-
-const PAYMENT_CATEGORIES = [
-  { label: "-- Select category --", value: "" },
-  { label: "Electronics", value: "electronics" },
-  { label: "Entertainment", value: "entertainment" },
-  { label: "Education", value: "education" },
-  { label: "Clothing", value: "clothing" },
-  { label: "Work", value: "work" },
-  { label: "Sports", value: "sports" },
-];
-
-const PAYMENT_FREQUENCIES = [
-  { label: "-- None --", value: "" },
-  { label: "Daily", value: "daily" },
-  { label: "Weekly", value: "weekly" },
-  { label: "Monthly", value: "monthly" },
-  { label: "Yearly", value: "yearly" },
-];
 
 interface UpdatePaymentProps {
   paymentId: number;
@@ -108,7 +89,7 @@ export const UpdatePaymentComponent = ({
                   label="Payment Type"
                   value={payment.type}
                   onChange={handleSelectChange}
-                  options={PAYMENT_TYPES}
+                  options={PAYMENT_TYPES_FORM}
                 />
 
                 <SelectInput
@@ -117,7 +98,7 @@ export const UpdatePaymentComponent = ({
                   label="Payment Category"
                   value={payment.category}
                   onChange={handleSelectChange}
-                  options={PAYMENT_CATEGORIES}
+                  options={PAYMENT_CATEGORIES_FORM}
                 />
 
                 <TextInput
@@ -166,7 +147,7 @@ export const UpdatePaymentComponent = ({
                   label="Frequency"
                   value={payment.frequency ?? ""}
                   onChange={handleSelectChange}
-                  options={PAYMENT_FREQUENCIES}
+                  options={PAYMENT_FREQUENCIES_FORM}
                 />
 
                 <TextInput

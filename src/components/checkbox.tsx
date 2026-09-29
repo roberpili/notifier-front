@@ -1,3 +1,5 @@
+import "@/app/styles/checkbox.css";
+
 interface Props {
   id: string;
   label: string;

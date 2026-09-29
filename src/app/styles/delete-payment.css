@@ -1,0 +1,69 @@
+.delete-payment {
+    width: 100%;
+    min-height: 100vh;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.delete-payment h1 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.delete-payment > p {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.delete-payment-message {
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+}
+
+.delete-payment-message--error {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.delete-payment-message--success {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.delete-payment-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.delete-payment-delete-button {
+    border-radius: 0.25rem;
+    background: #dc2626;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+.delete-payment-delete-button:hover {
+    background: #b91c1c;
+}
+
+.delete-payment-delete-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.delete-payment-cancel {
+    border-radius: 0.25rem;
+    background: #d1d5db;
+    padding: 0.5rem 1rem;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.delete-payment-cancel:hover {
+    background: #9ca3af;
+}

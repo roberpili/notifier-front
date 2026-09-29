@@ -1,0 +1,25 @@
+.container {
+    padding: 1.5rem;
+}
+
+.centered {
+    text-align: center;
+}
+
+.error {
+    color: #dc2626;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 400;
+    margin: 0;
+}
+
+.link-wrapper {
+    margin: 0.5rem 0 0;
+}
+
+.link {
+    color: #2563eb;
+    text-decoration: underline;
+    font-weight: 500;
+}

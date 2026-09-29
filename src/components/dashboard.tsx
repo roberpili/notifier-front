@@ -1,4 +1,4 @@
-import type { Payment } from "@/types";
+import type { Payment } from "@/types/payment";
 import { AddPaymentComponent } from "./payments/add_payment";
 import { PaymentsTableComponent } from "./payments/payments_table";
 

@@ -1,0 +1,74 @@
+.payment-form {
+    padding-block: 0.25rem;
+}
+
+.payment-form-container {
+    width: 100%;
+    margin: 1.5rem auto 0;
+    padding-inline: 1rem;
+}
+
+.payment-form-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.payment-form-header {
+    margin-bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: #fff;
+    padding: 1.5rem;
+}
+
+.payment-form-header h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.payment-form-body {
+    flex: 1;
+    padding: 2.5rem 1rem;
+    padding-top: 0;
+}
+
+.payment-form-body h2 {
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.payment-form-body hr {
+    margin-block: 1.5rem;
+    border: 0;
+    border-top: 1px solid #d1d5db;
+}
+
+.payment-form-checkboxes {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.payment-form-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .payment-form-container {
+        width: 66.666667%;
+    }
+
+    .payment-form-body {
+        padding-inline: 2.5rem;
+    }
+}

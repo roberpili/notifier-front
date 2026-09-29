@@ -1,6 +1,7 @@
+import type { Payment } from "@/types/payment";
+import { formatDate } from "@/utils/payments-helpers";
 import Link from "next/link";
-import type { Payment } from "@/types";
-import { formatDate } from "@/lib/payments-helpers";
+import "@/app/styles/payment-row.css";
 
 interface PaymentRowProps {
   payment: Payment;
@@ -11,7 +12,7 @@ export const PaymentRow = ({ payment }: PaymentRowProps) => {
     <tr className="payment-row">
       <td>{payment.id}</td>
 
-      <th className="row">{payment.name}</th>
+      <td className="payment-row-name">{payment.name}</td>
 
       <td>{payment.type}</td>
       <td>{payment.category}</td>

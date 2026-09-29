@@ -1,3 +1,5 @@
+import "@/app/styles/select-input.css";
+
 type Option = {
   label: string;
   value: string;

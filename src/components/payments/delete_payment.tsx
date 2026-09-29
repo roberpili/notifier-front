@@ -3,8 +3,9 @@
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { INITIAL_PAYMENT_RESULT } from "@/constants/auth";
 import { deletePaymentAction } from "@/actions/payments";
-import { INITIAL_PAYMENT_RESULT } from "@/actions/form-state";
+import "@/app/styles/delete-payment.css";
 
 const REDIRECT_DELAY = 1000;
 
@@ -27,7 +28,7 @@ export const DeletePaymentComponent = ({ paymentId }: DeletePaymentProps) => {
   }, [result, router]);
 
   return (
-    <main className="delete-payment">
+    <div className="delete-payment">
       <h1>Delete Payment</h1>
 
       <p>Are you sure you want to delete this payment?</p>
@@ -56,6 +57,6 @@ export const DeletePaymentComponent = ({ paymentId }: DeletePaymentProps) => {
           Cancel
         </Link>
       </div>
-    </main>
+    </div>
   );
 };

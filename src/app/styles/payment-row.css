@@ -1,0 +1,54 @@
+.payment-row {
+    background: #fff;
+}
+
+.payment-row:hover {
+    background: #f9fafb;
+}
+
+.payment-row td {
+    padding: 1rem 1.5rem;
+}
+
+.payment-row-name {
+    color: #111827;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.payment-status,
+.payment-recurrent {
+    font-weight: 500;
+}
+
+.payment-status--paid {
+    color: #16a34a;
+}
+
+.payment-status--unpaid {
+    color: #dc2626;
+}
+
+.payment-recurrent--yes {
+    color: #2563eb;
+}
+
+.payment-recurrent--no {
+    color: #6b7280;
+}
+
+.payment-row-action {
+    text-align: right;
+}
+
+.payment-row-action a {
+    font-weight: 500;
+}
+
+.payment-row-action:first-of-type a {
+    color: #2563eb;
+}
+
+.payment-row-action a:hover {
+    text-decoration: underline;
+}
