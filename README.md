@@ -86,6 +86,20 @@ Authentication uses an httpOnly session cookie written by the login Server Actio
 server-side reads can authorize requests without any client-side state. There is no
 client-side auth store and no `localStorage` usage.
 
+## Admin dashboard
+
+The admin area uses a separate session cookie and a separate login route:
+
+| Route             | Purpose                                                              |
+| ----------------- | -------------------------------------------------------------------- |
+| `/admin`          | Admin login                                                          |
+| `/admin/users`    | List users, search by email or ID, and delete users                  |
+| `/admin/payments` | List payments and search by ID                                       |
+
+Admin API calls are placeholders in
+[`src/services/admin.ts`](./src/services/admin.ts). Replace `ADMIN_API_BASE_URL` and
+the endpoint paths there with the real admin API.
+
 ## Tech Stack
 
 The following tools were used in the construction of the project:
