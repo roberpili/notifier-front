@@ -1,20 +1,25 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { ADMIN_SESSION_COOKIE } from "./constants/admin";
 import { SESSION_COOKIE } from "./constants/auth";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/payments"];
+const ADMIN_PROTECTED_PREFIXES = ["/admin"];
 
-const isProtected = (pathname: string): boolean =>
-  PROTECTED_PREFIXES.some(
+const matchesPrefix = (pathname: string, prefixes: string[]): boolean =>
+  prefixes.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
 
 export const proxy = (request: NextRequest): NextResponse => {
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get(SESSION_COOKIE)?.value;
-  const isAuthenticated = Boolean(token);
+  const isAuthenticated = Boolean(request.cookies.get(SESSION_COOKIE)?.value);
 
-  if (isProtected(pathname) && !isAuthenticated) {
+  const isAdminAuthenticated = Boolean(
+    request.cookies.get(ADMIN_SESSION_COOKIE)?.value,
+  );
+
+  if (matchesPrefix(pathname, PROTECTED_PREFIXES) && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -22,9 +27,19 @@ export const proxy = (request: NextRequest): NextResponse => {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  if (matchesPrefix(pathname, ADMIN_PROTECTED_PREFIXES)) {
+    if (!isAdminAuthenticated) {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+
+    if (pathname === "/admin") {
+      return NextResponse.redirect(new URL("/admin/users", request.url));
+    }
+  }
+
   return NextResponse.next();
 };
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/payments/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/payments/:path*", "/login", "/admin/:path*"],
 };
