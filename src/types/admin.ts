@@ -19,3 +19,12 @@ export type AdminFormState = {
 export type AdminDeleteResult = {
   error: string | null;
 };
+
+export interface AdminLoginResponse {
+  user: {
+    id: number;
+    email: string;
+    role: string;
+  };
+  setCookie: string;
+}

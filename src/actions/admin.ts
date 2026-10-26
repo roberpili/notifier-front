@@ -25,7 +25,10 @@ export async function adminLoginAction(
   }
 
   try {
-    const setCookie = await adminLoginRequest({ email, password });
+    const { user, setCookie } = await adminLoginRequest({ email, password });
+    if (user.role !== "admin") {
+      return { error: "you are not an admin" };
+    }
     const token = extractCookieValue(setCookie, "session_token");
 
     const cookieStore = await cookies();

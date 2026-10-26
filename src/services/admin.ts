@@ -1,4 +1,4 @@
-import type { AdminLoginPayload } from "@/types/admin";
+import type { AdminLoginPayload, AdminLoginResponse } from "@/types/admin";
 import { parseError } from "./helpers";
 import { cookies } from "next/headers";
 import { ADMIN_SESSION_COOKIE } from "@/constants/admin";
@@ -40,7 +40,7 @@ export async function adminRequest<T>(
 
 export async function adminLoginRequest(
   payload: AdminLoginPayload,
-): Promise<string> {
+): Promise<AdminLoginResponse> {
   const response = await fetch(`${ADMIN_API_BASE_URL}/v1/users/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -57,5 +57,10 @@ export async function adminLoginRequest(
     throw new Error("the backend did not return an authentication cookie");
   }
 
-  return setCookie;
+  const data = await response.json();
+
+  return {
+    user: data,
+    setCookie,
+  };
 }
