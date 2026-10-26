@@ -1,7 +1,10 @@
+export type AdminRole = "admin" | "user";
+
 export interface AdminUser {
   id: number;
   email: string;
   name: string;
+  role?: AdminRole;
 }
 
 export type AdminLoginPayload = {

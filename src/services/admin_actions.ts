@@ -8,7 +8,7 @@ export function getAllUsers(): Promise<AdminUser[]> {
 
 export function getUserByEmail(email: string): Promise<AdminUser> {
   return adminRequest<AdminUser>(
-    `/v1/admin/users/by-email?email=${encodeURIComponent(email)}`,
+    `/v1/admin/users/email/${encodeURIComponent(email)}`,
   );
 }
 

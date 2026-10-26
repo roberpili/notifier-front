@@ -3,7 +3,7 @@ import { ADMIN_SESSION_COOKIE } from "./constants/admin";
 import { SESSION_COOKIE } from "./constants/auth";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/payments"];
-const ADMIN_PROTECTED_PREFIXES = ["/admin"];
+const ADMIN_PROTECTED_PREFIXES = ["/admin/users", "/admin/payments"];
 
 const matchesPrefix = (pathname: string, prefixes: string[]): boolean =>
   prefixes.some(
@@ -19,22 +19,23 @@ export const proxy = (request: NextRequest): NextResponse => {
     request.cookies.get(ADMIN_SESSION_COOKIE)?.value,
   );
 
+  if (
+    matchesPrefix(pathname, ADMIN_PROTECTED_PREFIXES) &&
+    !isAdminAuthenticated
+  ) {
+    return NextResponse.redirect(new URL("/admin", request.url));
+  }
+
+  if (pathname === "/admin" && isAdminAuthenticated) {
+    return NextResponse.redirect(new URL("/admin/users", request.url));
+  }
+
   if (matchesPrefix(pathname, PROTECTED_PREFIXES) && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   if (pathname === "/login" && isAuthenticated) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
-
-  if (matchesPrefix(pathname, ADMIN_PROTECTED_PREFIXES)) {
-    if (!isAdminAuthenticated) {
-      return NextResponse.redirect(new URL("/admin", request.url));
-    }
-
-    if (pathname === "/admin") {
-      return NextResponse.redirect(new URL("/admin/users", request.url));
-    }
   }
 
   return NextResponse.next();
